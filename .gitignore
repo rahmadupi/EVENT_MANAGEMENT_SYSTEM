@@ -33,3 +33,5 @@ Thumbs.db
 # Tool Caches
 .eslintcache
 .prettiercache
+
+/generated/prisma
