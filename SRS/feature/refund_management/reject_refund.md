@@ -17,6 +17,3 @@ processed.
 ### Business Rules
 
 ### Details
-
-### Note
-When an Event Organizer receives a refund request, they must evaluate the validity of the request based on the provided information and the circumstances of the booking. If the refund request is deemed invalid, the Event Organizer can reject the request by providing a reason for the rejection. This action updates the status of the refund request to Rejected, while the associated booking remains in the Paid status, and any related tickets that have not been cancelled remain Active. The system also raises a domain event to notify other parts of the system about the change in refund status, ensuring that all relevant stakeholders are informed of the rejection. This helps maintain the integrity of the refund process and ensures that only valid refund requests are processed.

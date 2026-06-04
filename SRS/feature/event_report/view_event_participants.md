@@ -16,6 +16,3 @@ check-in status.
 ### Bussiness Rules
 
 ### Details
-
-### Note
-The participant list is generated based on the booking data. Only bookings that have been paid for are considered valid and included in the participant list. If a booking has been refunded, the associated participants are removed from the active participant list, ensuring that only those who have completed their payment are counted as participants for the event.

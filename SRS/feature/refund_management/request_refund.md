@@ -19,6 +19,3 @@ or PaidOut.
 ### Business Rules
 
 ### Details
-
-### Note
-When a Customer decides to request a refund, the system must ensure that their booking meets the necessary criteria for a refund request. This includes having a booking status of Paid, ensuring that no tickets from the booking have been checked in, and submitting the refund request before the specified refund deadline. If the event associated with the booking is cancelled, the system will automatically allow a refund request without requiring the Customer to initiate it. Once a refund request is submitted, its status is set to Requested, and the system raises a domain event to notify other parts of the system about the new refund request, allowing for further processing by Event Organizers or System Admins. This process helps ensure that customers can easily request refunds while maintaining clear rules and procedures for handling such requests.

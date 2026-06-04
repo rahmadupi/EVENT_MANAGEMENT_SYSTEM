@@ -15,6 +15,3 @@ Paid, Expired, and Refunded.
 ### Bussiness Rules
 
 ### Details
-
-### Note
-The event sales report is generated based on the booking data for a specific event. It provides insights into the sales performance of the event, allowing the Event Organizer to track how many tickets have been sold in each category, the distribution of booking statuses, and the total revenue generated from paid bookings.

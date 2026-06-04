@@ -15,7 +15,3 @@ purposes.
 TicketCategoryDisabled.
 
 ### Details
-
-### Note
-
-When an Event Organizer decides to disable a ticket category, the system first checks to ensure that the event associated with the ticket category has not yet been completed. If the event is still active, the system allows the Event Organizer to disable the ticket category. Once disabled, customers will no longer be able to purchase tickets from that category, but any existing bookings for that category will still be retained in the system for historical reference. The system also raises a domain event to notify other parts of the system about the change in ticket category status, allowing for any necessary updates or actions to be taken in response to the disabled ticket category. This process helps Event Organizers manage their ticket offerings while maintaining accurate records of past bookings.
