@@ -1,4 +1,8 @@
-import { Injectable, NotFoundException, BadRequestException } from '@nestjs/common';
+import {
+  Injectable,
+  NotFoundException,
+  BadRequestException,
+} from '@nestjs/common';
 import { PrismaClient, EventStatus } from '@prisma/client';
 import { CreateEventDto, UpdateEventDto, EventQueryDto } from './dto/event.dto';
 
@@ -123,12 +127,16 @@ export class EventsService {
 
     const activeCategories = event.categories.filter((c) => c.isActive);
     if (activeCategories.length === 0) {
-      throw new BadRequestException('Event must have at least one active ticket category');
+      throw new BadRequestException(
+        'Event must have at least one active ticket category',
+      );
     }
 
     const totalQuota = activeCategories.reduce((sum, c) => sum + c.quota, 0);
     if (totalQuota > event.maxCapacity) {
-      throw new BadRequestException('Total ticket quota exceeds maximum event capacity');
+      throw new BadRequestException(
+        'Total ticket quota exceeds maximum event capacity',
+      );
     }
 
     return prisma.event.update({
