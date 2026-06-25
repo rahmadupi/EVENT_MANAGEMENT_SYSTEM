@@ -7,6 +7,7 @@ import { EventsModule } from './modules/events/events.module';
 import { TicketCategoriesModule } from './modules/ticket-categories/ticket-categories.module';
 import { BookingsModule } from './modules/bookings/bookings.module';
 import { RefundsModule } from './modules/refunds/refunds.module';
+import { CheckInModule } from './modules/check-in/check-in.module';
 
 @Module({
   imports: [
@@ -16,6 +17,7 @@ import { RefundsModule } from './modules/refunds/refunds.module';
     TicketCategoriesModule,
     BookingsModule,
     RefundsModule,
+    CheckInModule,
   ],
   controllers: [AppController],
   providers: [AppService],
