@@ -1,6 +1,13 @@
-import { Injectable, NotFoundException, BadRequestException } from '@nestjs/common';
+import {
+  Injectable,
+  NotFoundException,
+  BadRequestException,
+} from '@nestjs/common';
 import { PrismaClient } from '@prisma/client';
-import { CreateTicketCategoryDto, UpdateTicketCategoryDto } from './dto/ticket-category.dto';
+import {
+  CreateTicketCategoryDto,
+  UpdateTicketCategoryDto,
+} from './dto/ticket-category.dto';
 
 const prisma = new PrismaClient();
 
@@ -21,7 +28,7 @@ export class TicketCategoriesService {
         });
         const availableQuota = category.quota - (soldCount._sum.quantity || 0);
         return { ...category, availableQuota };
-      })
+      }),
     );
 
     return { data: categoriesWithAvailability };
@@ -62,13 +69,18 @@ export class TicketCategoriesService {
     const salesEndDate = new Date(dto.salesEndDate);
 
     if (salesEndDate > event.startDate) {
-      throw new BadRequestException('Ticket sales end date must be before event start date');
+      throw new BadRequestException(
+        'Ticket sales end date must be before event start date',
+      );
     }
 
     // Check total quota doesn't exceed event capacity
-    const totalQuota = event.categories.reduce((sum, c) => sum + c.quota, 0) + dto.quota;
+    const totalQuota =
+      event.categories.reduce((sum, c) => sum + c.quota, 0) + dto.quota;
     if (totalQuota > event.maxCapacity) {
-      throw new BadRequestException('Total ticket quota exceeds event capacity');
+      throw new BadRequestException(
+        'Total ticket quota exceeds event capacity',
+      );
     }
 
     return prisma.ticketCategory.create({
@@ -98,7 +110,9 @@ export class TicketCategoriesService {
       const salesStartDate = new Date(dto.salesStartDate);
       const salesEndDate = new Date(dto.salesEndDate);
       if (salesEndDate > category.event.startDate) {
-        throw new BadRequestException('Ticket sales end date must be before event start date');
+        throw new BadRequestException(
+          'Ticket sales end date must be before event start date',
+        );
       }
     }
 
@@ -106,7 +120,9 @@ export class TicketCategoriesService {
       where: { id },
       data: {
         ...dto,
-        salesStartDate: dto.salesStartDate ? new Date(dto.salesStartDate) : undefined,
+        salesStartDate: dto.salesStartDate
+          ? new Date(dto.salesStartDate)
+          : undefined,
         salesEndDate: dto.salesEndDate ? new Date(dto.salesEndDate) : undefined,
       },
     });

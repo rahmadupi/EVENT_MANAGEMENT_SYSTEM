@@ -1,6 +1,18 @@
-import { Controller, Get, Post, Patch, Delete, Param, Body, UseGuards } from '@nestjs/common';
+import {
+  Controller,
+  Get,
+  Post,
+  Patch,
+  Delete,
+  Param,
+  Body,
+  UseGuards,
+} from '@nestjs/common';
 import { TicketCategoriesService } from './ticket-categories.service';
-import { CreateTicketCategoryDto, UpdateTicketCategoryDto } from './dto/ticket-category.dto';
+import {
+  CreateTicketCategoryDto,
+  UpdateTicketCategoryDto,
+} from './dto/ticket-category.dto';
 import { JwtAuthGuard } from '../auth/guards/jwt-auth.guard';
 import { RolesGuard } from '../auth/guards/roles.guard';
 import { Roles } from '../auth/decorators/roles.decorator';
@@ -8,7 +20,9 @@ import { UserRole } from '@prisma/client';
 
 @Controller('events/:eventId/categories')
 export class TicketCategoriesController {
-  constructor(private readonly ticketCategoriesService: TicketCategoriesService) {}
+  constructor(
+    private readonly ticketCategoriesService: TicketCategoriesService,
+  ) {}
 
   @Get()
   findAll(@Param('eventId') eventId: string) {
@@ -23,7 +37,10 @@ export class TicketCategoriesController {
   @Post()
   @UseGuards(JwtAuthGuard, RolesGuard)
   @Roles(UserRole.EVENT_ORGANIZER, UserRole.SYSTEM_ADMIN)
-  create(@Param('eventId') eventId: string, @Body() dto: CreateTicketCategoryDto) {
+  create(
+    @Param('eventId') eventId: string,
+    @Body() dto: CreateTicketCategoryDto,
+  ) {
     return this.ticketCategoriesService.create(eventId, dto);
   }
 

@@ -1,4 +1,11 @@
-import { IsString, IsNumber, IsDateString, IsOptional, IsEnum, Min } from 'class-validator';
+import {
+  IsString,
+  IsNumber,
+  IsDateString,
+  IsOptional,
+  IsEnum,
+  Min,
+} from 'class-validator';
 import { RefundPolicy } from '@prisma/client';
 
 export class CreateTicketCategoryDto {
