@@ -1,4 +1,8 @@
-# System Context
+# EVENT MANAGEMENT SYSTEM - PROJECT OVERVIEW
+
+The Event Management System is designed to facilitate the organization and management of events, including ticket sales, participant management, and event monitoring. The system provides a platform for event organizers to create and manage events, while allowing customers to browse and book tickets for various events. Additionally, gate officers can validate tickets during events, and system administrators can oversee operational processes.
+
+## System Context
 
 The system interacts with several external actors and external systems.
 Human Actors:
@@ -27,7 +31,10 @@ The System Admin can:
 3
 • trigger refund payout
 • monitor operational processes
-External Systems:
+
+
+### External Systems
+
 The system may interact with:
 
 1. Payment Gateway. Used to process booking payments.

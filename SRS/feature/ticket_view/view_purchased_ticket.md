@@ -12,6 +12,4 @@ As a Customer, I can view my purchased tickets so that I can use them to enter t
 Cancelled.
 • Tickets from cancelled events must have the status Cancelled or RefundRequired
 
-### Business Rules
-
 ### Details
