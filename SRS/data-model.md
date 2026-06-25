@@ -1,56 +1,109 @@
 # Data Model
 
-This document describes the data model for the Event Management System based on the feature specifications.
+This document describes the data model for the Event Management System, aligned with the Prisma schema.
 
 ---
 
 ## Entity Relationship Diagram
 
 ```
-┌──────────┐       ┌──────────────┐       ┌─────────┐
-│   User   │──┐    │    Event    │──┐    │  Event  │
-└──────────┘  │    └──────────────┘  │    │ Status │
-              │    │ id              │    │ Enum   │
-              │    │ name           │    └───────┘
-              │    │ description   │
-              │    │ startDate    │       ┌────────────────┐
-              │    │ endDate      │◄─────┤TicketCategory │
-              │    │ location     │       └────────────────┤
-              │    │ maxCapacity  │       │ id             │
-              │    │ status      │       │ eventId        │
-              │    │ createdBy   │       │ name           │
-              │    │ createdAt   │       │ price          │
-              │    │ updatedAt   │       │ quota          │
-              └──────────────┘       │ salesStartDate │
-                                   │ salesEndDate  │
-              ┌────────────────┐   │ isActive      │
-              │    Booking     │   └────────────────┘
-              └────────────────┤
-              │ id             │
-              │ userId         │       ┌───────────┐
-              │ eventId        │◄──────│  Ticket  │
-              │ status        │       └───────────┤
-              │ totalPrice    │       │ id        │
-              │ paymentDue   │       │ bookingId │
-              │ paidAt      │       │ eventId   │
-              │ expiresAt    │       │ categoryId│
-              │ createdAt    │       │ code     │
-              │ updatedAt    │       │ status   │
-              └──────────────┘       │ checkedInAt │
-                                   │ createdAt  │
-              ┌────────────────┐    │ updatedAt │
-              │    Refund     │    └───────────┘
-              └────────────────┤
-              │ id             │
-              │ userId         │
-              │ bookingId      │
-              │ amount        │
-              │ status        │
-              │ requestedAt   │
-              │ processedAt   │
+┌──────────┐                  ┌──────────────┐
+│   User   │──┐               │    Event    │
+└──────────┘  │               └──────────────┤
+          │  │               │ id           │
+          │  │               │ name        │
+          │  │               │ description │
+          │  │               │ startDate   │
+          │  │               │ endDate     │
+          │  │               │ location   │
+          │  │               │ maxCapacity│
+          │  │               │ status     │
+          │  │               │ createdBy  │
+          │  │               └──────────────┘
+          │                      │
+          │                      │ 1:N
+          │                      ▼
+          │               ┌────────────────┐
+          │               │TicketCategory │
+          │               └────────────────┤
+          │               │ id          │
+          │               │ eventId     │
+          │               │ name       │
+          │               │ price      │
+          │               │ quota      │
+          │               │ salesStart │
+          │               │ salesEnd   │
+          │               │ isActive   │
+          │               └─────────────┘
+          │
+          │    ┌────────────────┐
+          ├───┤    Booking     │
+          │    └────────────────┤
+          │    │ id             │
+          │    │ userId        │
+          │    │ eventId      │
+          │    │ status      │
+          │    │ totalPrice  │
+          │    │ paymentDue  │
+          │    │ paidAt      │
+          │    │ expiresAt  │
+          │    └──────────────┘
+          │         │
+          │         │ 1:N
+          │         ▼
+          │    ┌────────────┐
+          │    │BookingItem│
+          │    └──────────┤
+          │    │ id       │
+          │    │ category│
+          │    │ quantity│
+          │    │ unitPrice│
+          │    │ subtotal │
+          │    └─────────┘
+          │
+          │    ┌────────────────┐
+          ├───┤    Ticket     │
+          │    └────────────────┤
+          │    │ id           │
+          │    │ bookingId    │
+          │    │ eventId     │
+          │    │ categoryId │
+          │    │ code       │
+          │    │ status     │
+          │    │ checkedInAt│
+          │    └────────────┘
+          │
+          │    ┌────────────────┐
+          └───┤    Refund     │
+               └────────────────┤
+               │ id           │
+               │ userId       │
+               │ bookingId   │
+               │ amount      │
+               │ status     │
+               │ reason     │
+               │ requestedAt│
+               │ processedAt│
+               └────────────┘
+
+     ┌────────────────┐
+     │   AuditLog    │
+     └────────────────┤
+     │ id            │
+     │ entityType   │
+     │ entityId     │
+     │ action       │
+     │ performedBy │
+     │ oldValue    │
+     │ newValue    │
+     │ createdAt   │
+     └─────────────┘
+```
+
               │ createdAt     │
               │ updatedAt     │
               └───────────────┘
+
 ```
 
 ---
@@ -276,3 +329,4 @@ This document describes the data model for the Event Management System based on 
 | `RefundApproved`         | refundId                   |
 | `RefundRejected`         | refundId, reason           |
 | `RefundPaid`             | refundId, amount           |
+```
