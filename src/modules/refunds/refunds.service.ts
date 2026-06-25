@@ -1,5 +1,14 @@
-import { Injectable, NotFoundException, BadRequestException } from '@nestjs/common';
-import { PrismaClient, BookingStatus, RefundStatus, TicketStatus } from '@prisma/client';
+import {
+  Injectable,
+  NotFoundException,
+  BadRequestException,
+} from '@nestjs/common';
+import {
+  PrismaClient,
+  BookingStatus,
+  RefundStatus,
+  TicketStatus,
+} from '@prisma/client';
 import { CreateRefundDto, ProcessRefundDto } from './dto/refund.dto';
 
 const prisma = new PrismaClient();
@@ -29,13 +38,19 @@ export class RefundsService {
     }
 
     // Check if any ticket has been checked in
-    const checkedInTickets = booking.tickets.filter((t) => t.status === TicketStatus.CHECKED_IN);
+    const checkedInTickets = booking.tickets.filter(
+      (t) => t.status === TicketStatus.CHECKED_IN,
+    );
     if (checkedInTickets.length > 0) {
-      throw new BadRequestException('Cannot refund booking with checked-in tickets');
+      throw new BadRequestException(
+        'Cannot refund booking with checked-in tickets',
+      );
     }
 
     // Check refund deadline (e.g., 24 hours before event)
-    const refundDeadline = new Date(booking.event.startDate.getTime() - 24 * 60 * 60 * 1000);
+    const refundDeadline = new Date(
+      booking.event.startDate.getTime() - 24 * 60 * 60 * 1000,
+    );
     if (new Date() > refundDeadline) {
       throw new BadRequestException('Refund deadline has passed');
     }
@@ -49,7 +64,9 @@ export class RefundsService {
     });
 
     if (existingRefund) {
-      throw new BadRequestException('Refund already requested for this booking');
+      throw new BadRequestException(
+        'Refund already requested for this booking',
+      );
     }
 
     const refund = await prisma.refund.create({
