@@ -1,5 +1,14 @@
-import { Injectable, NotFoundException, BadRequestException } from '@nestjs/common';
-import { PrismaClient, EventStatus, BookingStatus, TicketStatus } from '@prisma/client';
+import {
+  Injectable,
+  NotFoundException,
+  BadRequestException,
+} from '@nestjs/common';
+import {
+  PrismaClient,
+  EventStatus,
+  BookingStatus,
+  TicketStatus,
+} from '@prisma/client';
 import { CreateBookingDto } from './dto/booking.dto';
 
 const prisma = new PrismaClient();
@@ -43,7 +52,9 @@ export class BookingsService {
     });
 
     if (existingBooking) {
-      throw new BadRequestException('You already have a pending booking for this event');
+      throw new BadRequestException(
+        'You already have a pending booking for this event',
+      );
     }
 
     // Validate categories and calculate total
@@ -59,12 +70,16 @@ export class BookingsService {
       const category = event.categories.find((c) => c.id === item.categoryId);
 
       if (!category || !category.isActive) {
-        throw new BadRequestException(`Invalid ticket category: ${item.categoryId}`);
+        throw new BadRequestException(
+          `Invalid ticket category: ${item.categoryId}`,
+        );
       }
 
       const now = new Date();
       if (now < category.salesStartDate || now > category.salesEndDate) {
-        throw new BadRequestException('Ticket category is not available for purchase');
+        throw new BadRequestException(
+          'Ticket category is not available for purchase',
+        );
       }
 
       // Check quota
@@ -75,7 +90,9 @@ export class BookingsService {
 
       const availableQuota = category.quota - (soldCount._sum.quantity || 0);
       if (item.quantity > availableQuota) {
-        throw new BadRequestException(`Not enough tickets available for ${category.name}`);
+        throw new BadRequestException(
+          `Not enough tickets available for ${category.name}`,
+        );
       }
 
       const subtotal = Number(category.price) * item.quantity;
@@ -109,7 +126,9 @@ export class BookingsService {
       ...booking,
       items: bookingItems.map((item) => ({
         ...item,
-        categoryName: event.categories.find((c) => c.id === item.ticketCategoryId)?.name,
+        categoryName: event.categories.find(
+          (c) => c.id === item.ticketCategoryId,
+        )?.name,
       })),
     };
   }
@@ -121,7 +140,9 @@ export class BookingsService {
       where,
       orderBy: { createdAt: 'desc' },
       include: {
-        event: { select: { id: true, name: true, startDate: true, location: true } },
+        event: {
+          select: { id: true, name: true, startDate: true, location: true },
+        },
         items: {
           include: { category: { select: { name: true } } },
         },
