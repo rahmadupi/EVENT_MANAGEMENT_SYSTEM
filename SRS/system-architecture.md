@@ -72,11 +72,11 @@ src/
 
 ## External Systems Integration
 
-| Service | Interface | Implementation |
-|---------|-----------|----------------|
-| Payment Gateway | `IPaymentService` | `PaymentGatewayService` |
-| Refund Service | `IRefundService` | `BankRefundService` |
-| Notification | `INotificationService` | `EmailNotificationService`, `WhatsAppNotificationService` |
+| Service         | Interface              | Implementation                                            |
+| --------------- | ---------------------- | --------------------------------------------------------- |
+| Payment Gateway | `IPaymentService`      | `PaymentGatewayService`                                   |
+| Refund Service  | `IRefundService`       | `BankRefundService`                                       |
+| Notification    | `INotificationService` | `EmailNotificationService`, `WhatsAppNotificationService` |
 
 ---
 
@@ -101,19 +101,19 @@ src/
 
 Domain events are published via NestJS EventEmitter:
 
-| Domain Event | Description |
-|-------------|-------------|
-| `EventCreated` | Raised when new event is created |
-| `EventPublished` | Raised when event is published |
-| `EventCancelled` | Raised when event is cancelled |
-| `BookingCreated` | Raised when booking is created |
-| `BookingPaid` | Raised when booking payment is completed |
-| `BookingExpired` | Raised when booking expires |
-| `RefundRequested` | Raised when refund is requested |
-| `RefundApproved` | Raised when refund is approved |
-| `RefundRejected` | Raised when refund is rejected |
-| `RefundPaid` | Raised when refund payout is completed |
-| `TicketCheckedIn` | Raised when ticket is checked in |
+| Domain Event      | Description                              |
+| ----------------- | ---------------------------------------- |
+| `EventCreated`    | Raised when new event is created         |
+| `EventPublished`  | Raised when event is published           |
+| `EventCancelled`  | Raised when event is cancelled           |
+| `BookingCreated`  | Raised when booking is created           |
+| `BookingPaid`     | Raised when booking payment is completed |
+| `BookingExpired`  | Raised when booking expires              |
+| `RefundRequested` | Raised when refund is requested          |
+| `RefundApproved`  | Raised when refund is approved           |
+| `RefundRejected`  | Raised when refund is rejected           |
+| `RefundPaid`      | Raised when refund payout is completed   |
+| `TicketCheckedIn` | Raised when ticket is checked in         |
 
 ---
 

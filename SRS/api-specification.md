@@ -15,9 +15,11 @@ Base URL: /api/v1
 ## Authentication
 
 ### POST /auth/login
+
 Login to the system.
 
 **Request:**
+
 ```json
 {
   "email": "user@example.com",
@@ -26,6 +28,7 @@ Login to the system.
 ```
 
 **Response (200):**
+
 ```json
 {
   "accessToken": "string",
@@ -40,9 +43,11 @@ Login to the system.
 ```
 
 ### POST /auth/register
+
 Register a new user.
 
 **Request:**
+
 ```json
 {
   "email": "user@example.com",
@@ -53,6 +58,7 @@ Register a new user.
 ```
 
 **Response (201):**
+
 ```json
 {
   "id": "uuid",
@@ -67,6 +73,7 @@ Register a new user.
 ## Events
 
 ### GET /events
+
 Get all available events.
 
 **Query Parameters:**
@@ -77,6 +84,7 @@ Get all available events.
 | `limit` | number | Items per page (default: 20) |
 
 **Response (200):**
+
 ```json
 {
   "data": [
@@ -100,9 +108,11 @@ Get all available events.
 ```
 
 ### GET /events/:id
+
 Get event details.
 
 **Response (200):**
+
 ```json
 {
   "id": "uuid",
@@ -117,7 +127,7 @@ Get event details.
     {
       "id": "uuid",
       "name": "VIP",
-      "price": 100.00,
+      "price": 100.0,
       "quota": 100,
       "salesStartDate": "2024-01-01T00:00:00Z",
       "salesEndDate": "2024-01-01T09:00:00Z",
@@ -128,9 +138,11 @@ Get event details.
 ```
 
 ### POST /events
+
 Create a new event. **(Event Organizer only)**
 
 **Request:**
+
 ```json
 {
   "name": "string",
@@ -143,6 +155,7 @@ Create a new event. **(Event Organizer only)**
 ```
 
 **Response (201):**
+
 ```json
 {
   "id": "uuid",
@@ -158,9 +171,11 @@ Create a new event. **(Event Organizer only)**
 ```
 
 ### PATCH /events/:id/publish
+
 Publish an event. **(Event Organizer only)**
 
 **Response (200):**
+
 ```json
 {
   "id": "uuid",
@@ -169,9 +184,11 @@ Publish an event. **(Event Organizer only)**
 ```
 
 ### DELETE /events/:id/cancel
+
 Cancel an event. **(Event Organizer only)**
 
 **Response (200):**
+
 ```json
 {
   "id": "uuid",
@@ -184,16 +201,18 @@ Cancel an event. **(Event Organizer only)**
 ## Ticket Categories
 
 ### GET /events/:eventId/categories
+
 Get all ticket categories for an event.
 
 **Response (200):**
+
 ```json
 {
   "data": [
     {
       "id": "uuid",
       "name": "VIP",
-      "price": 100.00,
+      "price": 100.0,
       "quota": 100,
       "availableQuota": 50,
       "salesStartDate": "2024-01-01T00:00:00Z",
@@ -206,13 +225,15 @@ Get all ticket categories for an event.
 ```
 
 ### POST /events/:eventId/categories
+
 Create a ticket category. **(Event Organizer only)**
 
 **Request:**
+
 ```json
 {
   "name": "VIP",
-  "price": 100.00,
+  "price": 100.0,
   "quota": 100,
   "salesStartDate": "2024-01-01T00:00:00Z",
   "salesEndDate": "2024-01-01T09:00:00Z",
@@ -221,12 +242,13 @@ Create a ticket category. **(Event Organizer only)**
 ```
 
 **Response (201):**
+
 ```json
 {
   "id": "uuid",
   "eventId": "uuid",
   "name": "VIP",
-  "price": 100.00,
+  "price": 100.0,
   "quota": 100,
   "salesStartDate": "2024-01-01T00:00:00Z",
   "salesEndDate": "2024-01-01T09:00:00Z",
@@ -236,9 +258,11 @@ Create a ticket category. **(Event Organizer only)**
 ```
 
 ### PATCH /categories/:id/disable
+
 Disable a ticket category. **(Event Organizer only)**
 
 **Response (200):**
+
 ```json
 {
   "id": "uuid",
@@ -251,9 +275,11 @@ Disable a ticket category. **(Event Organizer only)**
 ## Bookings
 
 ### POST /bookings
+
 Create a new booking. **(Customer only)**
 
 **Request:**
+
 ```json
 {
   "eventId": "uuid",
@@ -267,30 +293,33 @@ Create a new booking. **(Customer only)**
 ```
 
 **Response (201):**
+
 ```json
 {
   "id": "uuid",
   "userId": "uuid",
   "eventId": "uuid",
   "status": "PENDING_PAYMENT",
-  "totalPrice": 200.00,
+  "totalPrice": 200.0,
   "expiresAt": "2024-01-01T10:15:00Z",
   "items": [
     {
       "categoryId": "uuid",
       "categoryName": "VIP",
       "quantity": 2,
-      "unitPrice": 100.00,
-      "subtotal": 200.00
+      "unitPrice": 100.0,
+      "subtotal": 200.0
     }
   ]
 }
 ```
 
 ### GET /bookings/:id
+
 Get booking details.
 
 **Response (200):**
+
 ```json
 {
   "id": "uuid",
@@ -298,7 +327,7 @@ Get booking details.
   "eventId": "uuid",
   "eventName": "string",
   "status": "PAID",
-  "totalPrice": 200.00,
+  "totalPrice": 200.0,
   "paidAt": "2024-01-01T10:05:00Z",
   "expiresAt": "2024-01-01T10:15:00Z",
   "tickets": [
@@ -312,9 +341,11 @@ Get booking details.
 ```
 
 ### POST /bookings/:id/pay
+
 Pay for a booking. **(Customer only)**
 
 **Request:**
+
 ```json
 {
   "paymentMethod": "credit_card",
@@ -323,6 +354,7 @@ Pay for a booking. **(Customer only)**
 ```
 
 **Response (200):**
+
 ```json
 {
   "id": "uuid",
@@ -338,6 +370,7 @@ Pay for a booking. **(Customer only)**
 ```
 
 ### GET /bookings/my
+
 Get current user's bookings. **(Customer only)**
 
 **Query Parameters:**
@@ -348,6 +381,7 @@ Get current user's bookings. **(Customer only)**
 | `limit` | number | Items per page |
 
 **Response (200):**
+
 ```json
 {
   "data": [...],
@@ -360,9 +394,11 @@ Get current user's bookings. **(Customer only)**
 ## Tickets
 
 ### GET /tickets/:id
+
 Get ticket details.
 
 **Response (200):**
+
 ```json
 {
   "id": "uuid",
@@ -376,9 +412,11 @@ Get ticket details.
 ```
 
 ### GET /tickets/my
+
 Get current user's purchased tickets. **(Customer only)**
 
 **Response (200):**
+
 ```json
 {
   "data": [
@@ -399,9 +437,11 @@ Get current user's purchased tickets. **(Customer only)**
 ## Check-In
 
 ### POST /check-in/validate
+
 Validate a ticket before check-in. **(Gate Officer only)**
 
 **Request:**
+
 ```json
 {
   "ticketCode": "EVT-A1B2C3-D4E5F6G7",
@@ -410,6 +450,7 @@ Validate a ticket before check-in. **(Gate Officer only)**
 ```
 
 **Response (200):**
+
 ```json
 {
   "valid": true,
@@ -424,9 +465,11 @@ Validate a ticket before check-in. **(Gate Officer only)**
 ```
 
 ### POST /check-in/tickets
+
 Check in a ticket. **(Gate Officer only)**
 
 **Request:**
+
 ```json
 {
   "ticketCode": "EVT-A1B2C3-D4E5F6G7",
@@ -435,6 +478,7 @@ Check in a ticket. **(Gate Officer only)**
 ```
 
 **Response (200):**
+
 ```json
 {
   "success": true,
@@ -452,9 +496,11 @@ Check in a ticket. **(Gate Officer only)**
 ## Refunds
 
 ### POST /refunds
+
 Request a refund. **(Customer only)**
 
 **Request:**
+
 ```json
 {
   "bookingId": "uuid",
@@ -463,18 +509,20 @@ Request a refund. **(Customer only)**
 ```
 
 **Response (201):**
+
 ```json
 {
   "id": "uuid",
   "userId": "uuid",
   "bookingId": "uuid",
-  "amount": 200.00,
+  "amount": 200.0,
   "status": "REQUESTED",
   "requestedAt": "2024-01-01T10:00:00Z"
 }
 ```
 
 ### GET /refunds
+
 Get all refund requests. **(Event Organizer only)**
 
 **Query Parameters:**
@@ -484,6 +532,7 @@ Get all refund requests. **(Event Organizer only)**
 | `eventId` | uuid | Filter by event |
 
 **Response (200):**
+
 ```json
 {
   "data": [
@@ -491,7 +540,7 @@ Get all refund requests. **(Event Organizer only)**
       "id": "uuid",
       "userId": "uuid",
       "bookingId": "uuid",
-      "amount": 200.00,
+      "amount": 200.0,
       "status": "REQUESTED",
       "requestedAt": "2024-01-01T10:00:00Z"
     }
@@ -500,9 +549,11 @@ Get all refund requests. **(Event Organizer only)**
 ```
 
 ### PATCH /refunds/:id/approve
+
 Approve a refund. **(Event Organizer only)**
 
 **Response (200):**
+
 ```json
 {
   "id": "uuid",
@@ -511,9 +562,11 @@ Approve a refund. **(Event Organizer only)**
 ```
 
 ### PATCH /refunds/:id/reject
+
 Reject a refund. **(Event Organizer only)**
 
 **Request:**
+
 ```json
 {
   "reason": "string"
@@ -521,6 +574,7 @@ Reject a refund. **(Event Organizer only)**
 ```
 
 **Response (200):**
+
 ```json
 {
   "id": "uuid",
@@ -529,9 +583,11 @@ Reject a refund. **(Event Organizer only)**
 ```
 
 ### PATCH /refunds/:id/pay
+
 Process refund payout. **(System Admin only)**
 
 **Response (200):**
+
 ```json
 {
   "id": "uuid",
@@ -545,27 +601,30 @@ Process refund payout. **(System Admin only)**
 ## Reports
 
 ### GET /reports/events/:eventId/sales
+
 Get event sales report. **(Event Organizer only)**
 
 **Response (200):**
+
 ```json
 {
   "eventId": "uuid",
   "eventName": "string",
-  "totalRevenue": 50000.00,
+  "totalRevenue": 50000.0,
   "totalTicketsSold": 500,
   "bookingsCount": 300,
   "byCategory": [
     {
       "categoryName": "VIP",
       "ticketsSold": 100,
-      "revenue": 10000.00
+      "revenue": 10000.0
     }
   ]
 }
 ```
 
 ### GET /reports/events/:eventId/participants
+
 Get event participant list. **(Event Organizer only)**
 
 **Query Parameters:**
@@ -575,6 +634,7 @@ Get event participant list. **(Event Organizer only)**
 | `limit` | number | Items per page |
 
 **Response (200):**
+
 ```json
 {
   "data": [
@@ -599,6 +659,7 @@ Get event participant list. **(Event Organizer only)**
 ## Error Responses
 
 ### 400 Bad Request
+
 ```json
 {
   "statusCode": 400,
@@ -613,6 +674,7 @@ Get event participant list. **(Event Organizer only)**
 ```
 
 ### 401 Unauthorized
+
 ```json
 {
   "statusCode": 401,
@@ -621,6 +683,7 @@ Get event participant list. **(Event Organizer only)**
 ```
 
 ### 403 Forbidden
+
 ```json
 {
   "statusCode": 403,
@@ -629,6 +692,7 @@ Get event participant list. **(Event Organizer only)**
 ```
 
 ### 404 Not Found
+
 ```json
 {
   "statusCode": 404,
@@ -637,6 +701,7 @@ Get event participant list. **(Event Organizer only)**
 ```
 
 ### 422 Unprocessable Entity
+
 ```json
 {
   "statusCode": 422,
@@ -645,6 +710,7 @@ Get event participant list. **(Event Organizer only)**
 ```
 
 ### 500 Internal Server Error
+
 ```json
 {
   "statusCode": 500,
@@ -665,12 +731,13 @@ Get event participant list. **(Event Organizer only)**
 
 All list endpoints support pagination:
 
-| Parameter | Type | Default | Description |
-|-----------|------|---------|-------------|
-| `page` | number | 1 | Page number |
-| `limit` | number | 20 | Items per page (max: 100) |
+| Parameter | Type   | Default | Description               |
+| --------- | ------ | ------- | ------------------------- |
+| `page`    | number | 1       | Page number               |
+| `limit`   | number | 20      | Items per page (max: 100) |
 
 Response includes:
+
 ```json
 {
   "meta": {
