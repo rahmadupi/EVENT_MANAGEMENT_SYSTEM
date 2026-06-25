@@ -1,4 +1,12 @@
-import { Controller, Get, Post, Param, Body, Query, UseGuards } from '@nestjs/common';
+import {
+  Controller,
+  Get,
+  Post,
+  Param,
+  Body,
+  Query,
+  UseGuards,
+} from '@nestjs/common';
 import { CheckInService } from './check-in.service';
 import { ValidateTicketDto, CheckInTicketDto } from './dto/check-in.dto';
 import { JwtAuthGuard } from '../auth/guards/jwt-auth.guard';
@@ -26,7 +34,7 @@ export class CheckInController {
   getEventParticipants(
     @Param('eventId') eventId: string,
     @Query('page') page = 1,
-    @Query('limit') limit = 20
+    @Query('limit') limit = 20,
   ) {
     return this.checkInService.getEventParticipants(eventId, +page, +limit);
   }

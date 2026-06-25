@@ -1,4 +1,8 @@
-import { Injectable, NotFoundException, BadRequestException } from '@nestjs/common';
+import {
+  Injectable,
+  NotFoundException,
+  BadRequestException,
+} from '@nestjs/common';
 import { PrismaClient, TicketStatus } from '@prisma/client';
 import { ValidateTicketDto, CheckInTicketDto } from './dto/check-in.dto';
 
@@ -25,7 +29,11 @@ export class CheckInService {
     }
 
     if (ticket.status === TicketStatus.CHECKED_IN) {
-      return { valid: false, message: 'Ticket already checked in', checkedInAt: ticket.checkedInAt };
+      return {
+        valid: false,
+        message: 'Ticket already checked in',
+        checkedInAt: ticket.checkedInAt,
+      };
     }
 
     if (ticket.status !== TicketStatus.ACTIVE) {
@@ -36,9 +44,12 @@ export class CheckInService {
     const now = new Date();
     const eventDay = new Date(ticket.event.startDate);
     const isSameDay = now.toDateString() === eventDay.toDateString();
-    
+
     if (!isSameDay && now < ticket.event.startDate) {
-      return { valid: false, message: 'Check-in is only available on the event day' };
+      return {
+        valid: false,
+        message: 'Check-in is only available on the event day',
+      };
     }
 
     return {
@@ -76,16 +87,20 @@ export class CheckInService {
     }
 
     if (ticket.status !== TicketStatus.ACTIVE) {
-      throw new BadRequestException(`Cannot check in ticket with status ${ticket.status}`);
+      throw new BadRequestException(
+        `Cannot check in ticket with status ${ticket.status}`,
+      );
     }
 
     // Check if it's event day
     const now = new Date();
     const eventDay = new Date(ticket.event.startDate);
     const isSameDay = now.toDateString() === eventDay.toDateString();
-    
+
     if (!isSameDay && now < ticket.event.startDate) {
-      throw new BadRequestException('Check-in is only available on the event day');
+      throw new BadRequestException(
+        'Check-in is only available on the event day',
+      );
     }
 
     const checkedInTicket = await prisma.ticket.update({
